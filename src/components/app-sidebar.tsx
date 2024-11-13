@@ -3,6 +3,7 @@ import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -14,6 +15,8 @@ import {
 } from "@/components/ui/sidebar";
 import { headers } from "next/headers";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
+import InvitationDialog from "./InvitationDialog";
 
 // Menu items.
 const items = [
@@ -71,6 +74,9 @@ export async function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <InvitationDialog />
+      </SidebarFooter>
     </Sidebar>
   );
 }
