@@ -1,6 +1,6 @@
 "use client";
 import { ListFilter, Search } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Input } from "./ui/input";
 import MessageCard from "./MessageCard";
 import { Separator } from "@radix-ui/react-separator";
@@ -39,10 +39,10 @@ export default function Messaging({ data }: Props) {
         </div>
 
         {/* Chats */}
-        <div className="px-6 mt-3 overflow-auto no-scrollbar">
+        <div className="px-6 mt-3 overflow-y-scroll">
           {data.map((chat: any, index: number) => (
-            <>
-              <div onClick={() => setChosen(index)} key={index}>
+            <Fragment key={index}>
+              <div onClick={() => setChosen(index)}>
                 <MessageCard
                   data={{}}
                   className={index == chosen ? "bg-slate-200" : ""}
@@ -51,7 +51,7 @@ export default function Messaging({ data }: Props) {
               {index !== data.length - 1 && (
                 <Separator className="my-4 bg-zinc-300 w-3/4 mx-auto h-[1px]" />
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       </div>

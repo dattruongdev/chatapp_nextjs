@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -6,6 +7,8 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import Header from "@/components/Header";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,19 +34,21 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SidebarProvider defaultOpen={defaultOpen}>
-          <AppSidebar />
-
-          <div className="flex flex-col flex-1 max-h-screen">
-            <Header />
-            {children}
-          </div>
-        </SidebarProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <TooltipProvider>
+            <SidebarProvider defaultOpen={defaultOpen}>
+              <div className="flex flex-col flex-1 max-h-screen">
+                {children}
+              </div>
+            </SidebarProvider>
+          </TooltipProvider>
+          <Toaster />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

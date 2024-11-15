@@ -2,6 +2,7 @@ import React from "react";
 import { Bell } from "lucide-react";
 import Image from "next/image";
 import { CircleCheck } from "lucide-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Header() {
   return (
@@ -17,6 +18,13 @@ export default function Header() {
             {/* <CircleCheck className="text-green-400" /> */}
           </div>
         </div>
+
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </nav>
   );
